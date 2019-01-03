@@ -1,6 +1,5 @@
 from collections import Counter
 from sys import argv
-from random import randint
 
 box_ids = open(argv[1], 'r').read().split('\n')[:-1]
 
