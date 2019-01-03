@@ -18,10 +18,10 @@ print('The checksum is: {}'.format(answer1))
 # Part 2
 
 columns = tuple(zip(*box_ids))
-options = tuple(columns[:i] + columns[i + 1:] for i in range(len(columns)))
-best_match = tuple(Counter(zip(*option)).most_common(1)[0]
-                   for option in options)
-valid = tuple(match for match, times_found in best_match if times_found == 2)
-answer2 = ''.join(valid[0]) if valid else None
+options = (columns[:i] + columns[i + 1:] for i in range(len(columns)))
+best_match = (Counter(zip(*option)).most_common(1)[0] for option in options)
+answer2 = ''.join(next(match
+                       for match, times_found in best_match
+                       if times_found == 2))
 print('Matching characters are: {}'.format(answer2))
 
