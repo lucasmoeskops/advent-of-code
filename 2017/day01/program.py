@@ -19,3 +19,4 @@ answer2 = sum(int(m)
               for m, n in zip(number, chain(number[o:], number[:o]))
               if m == n)
 print('Captcha sum is {}'.format(answer2))
+

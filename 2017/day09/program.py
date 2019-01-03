@@ -32,3 +32,4 @@ answer1 = score
 answer2 = garbage_removed
 print('Group score is {}'.format(answer1))
 print('Garbage removed is {}'.format(answer2))
+

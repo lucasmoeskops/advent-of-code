@@ -40,7 +40,8 @@ def run(base, steps):
 
 
 def determine_after_zero(steps):
-    # Inspired by https://github.com/CameronAavik/AdventOfCode/blob/master/Challenges/2017/Day17.fs
+    # Inspired by https://github.com/CameronAavik/AdventOfCode/blob/master/Chall
+    # enges/2017/Day17.fs
     p = 0
     v = 0
     for i in range(1, steps + 2):

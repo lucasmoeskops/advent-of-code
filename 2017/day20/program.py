@@ -45,9 +45,15 @@ def onedimensional_clash(x1, v1, a1, x2, v2, a2):
 # Part 1
 
 slowest_acceleration = min(size(particle['a']) for particle in particles)
-slowest_particles = tuple(particle for particle in particles if size(particle['a']) == slowest_acceleration)
-lowest_position = min(size(position_after(particle, 100000000)) for particle in slowest_particles)
-slowest_particles = (i for i, particle in enumerate(particles) if size(position_after(particle, 100000000)) == lowest_position)
+slowest_particles = tuple(particle
+                          for particle in particles
+                          if size(particle['a']) == slowest_acceleration)
+lowest_position = min(size(position_after(particle, 100000000))
+                      for particle in slowest_particles)
+slowest_particles = (i
+                     for i, particle in enumerate(particles)
+                     if size(position_after(particle, 100000000)) == \
+                             lowest_position)
 answer1 = next(slowest_particles)
 print('The particle closest to (0, 0, 0) is {}'.format(answer1)) 
 
@@ -80,7 +86,8 @@ for id, other_id in combinations(range(len(particles)), 2):
 for time, clashes_at in sorted(clashes.items(), key=itemgetter(0)):
     valid_clashes = tuple(clash
                           for clash in clashes_at
-                          if clash[0] in particles_left and clash[1] in particles_left)
+                          if clash[0] in particles_left \
+                                  and clash[1] in particles_left)
     for clash in valid_clashes:
         particles_left -= set(clash)
 

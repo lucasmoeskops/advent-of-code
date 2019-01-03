@@ -40,3 +40,4 @@ while tuple(registers1) not in seen:
         registers1[index % num] += value
     answer2 += 1
 print('Steps in a cycle: {}'.format(answer2 - states.index(tuple(registers1))))
+
