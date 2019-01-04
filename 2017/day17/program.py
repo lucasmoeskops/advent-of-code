@@ -40,15 +40,18 @@ def run(base, steps):
 
 
 def determine_after_zero(steps):
-    # Inspired by https://github.com/CameronAavik/AdventOfCode/blob/master/Chall
-    # enges/2017/Day17.fs
+    # Inspired by, but faster than :-),  https://github.com/CameronAavik/AdventO
+    # fCode/blob/master/Challenges/2017/Day17.fs
     p = 0
     v = 0
-    for i in range(1, steps + 2):
-        p = (p + 1) % i
+    i = 1
+    while i < steps + 2:
         if p == 1:
             v = i - 1
-        p = (p + step) % i
+        j = max(1, (i - p - 1) // step)
+        p = (p + j * step) % i
+        i += j
+        p = (p + j) % i
     return v
 
 
