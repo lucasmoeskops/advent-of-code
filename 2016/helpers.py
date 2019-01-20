@@ -1,4 +1,9 @@
+import os
 from itertools import zip_longest
+
+
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def grouper(iterable, n, fillvalue=None):
