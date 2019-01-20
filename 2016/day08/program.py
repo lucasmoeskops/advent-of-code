@@ -31,7 +31,8 @@ class Screen:
             return i % self.width < a and i // self.width < b
 
         all_i = range(len(self.state))
-        self.state = tuple(Screen.ON if in_rect(i) else self.state[i] for i in all_i)
+        self.state = tuple(Screen.ON if in_rect(i) else self.state[i]
+                           for i in all_i)
 
     def rotate_row_y(self, a, b):
         def in_row(i):
@@ -41,7 +42,8 @@ class Screen:
             return (i - b) % self.width + i // self.width * self.width
 
         all_i = range(len(self.state))
-        self.state = tuple(self.state[shift_right(i) if in_row(i) else i] for i in all_i)
+        self.state = tuple(self.state[shift_right(i) if in_row(i) else i]
+                           for i in all_i)
 
     def rotate_column_x(self, a, b):
         def in_column(i):
@@ -51,7 +53,8 @@ class Screen:
             return (i - b * self.width) % (self.width * self.height)
 
         all_i = range(len(self.state))
-        self.state = tuple(self.state[shift_down(i) if in_column(i) else i] for i in all_i)
+        self.state = tuple(self.state[shift_down(i) if in_column(i) else i]
+                           for i in all_i)
 
 
 def execute_operations(screen, operations, simulate=False):
@@ -62,9 +65,11 @@ def execute_operations(screen, operations, simulate=False):
             screen.rect(*map(int, arguments[1].split('x')))
         elif arguments[0] == 'rotate':
             if arguments[1] == 'column':
-                screen.rotate_column_x(int(arguments[2].split('=')[1]), int(arguments[4]))
+                screen.rotate_column_x(int(arguments[2].split('=')[1]),
+                                       int(arguments[4]))
             elif arguments[1] == 'row':
-                screen.rotate_row_y(int(arguments[2].split('=')[1]), int(arguments[4]))
+                screen.rotate_row_y(int(arguments[2].split('=')[1]),
+                                    int(arguments[4]))
         else:
             print('Unknown operation {}'.format(arguments[0]))
 
