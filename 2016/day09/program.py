@@ -1,4 +1,3 @@
-from functools import partial
 from itertools import islice, takewhile
 from os import path
 from sys import argv
