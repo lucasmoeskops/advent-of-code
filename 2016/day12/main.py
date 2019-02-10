@@ -32,7 +32,8 @@ class Computer:
             i3: Statement = program[self.instruction_pointer + 2]
             if i1.instruction == 'inc' \
                     and i2.instruction == 'dec' \
-                    and i3.instruction == 'jnz':
+                    and i3.instruction == 'jnz'\
+                    and i3.param2 == -2:
                 self.registers[i1.param1] += self.registers[i2.param1]
                 self.registers[i2.param1] = 0
                 self.instruction_pointer += 2

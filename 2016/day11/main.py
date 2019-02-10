@@ -56,7 +56,7 @@ class Chip:
         return self.compatibility
 
     def __str__(self):
-        return '{}M'.format(self.abbreviation)
+        return '{}C'.format(self.abbreviation)
 
 
 class Elevator(ItemContainer):
@@ -251,7 +251,8 @@ class Simulator:
             if action[0] is None \
                     or action[0][0] in (MOVE_ELEVATOR_DOWN, MOVE_ELEVATOR_UP):
                 self._show_frame(action[1])
-                sleep(5 if first else 2)
+                #sleep(5 if first else 2)
+                input('Press [Enter] key to continue')
                 first = False
 
     def _show_frame(self, facility: Facility):
@@ -272,6 +273,7 @@ class Simulator:
                 else:
                     print('. ', end=' ')
             print('')
+        print('')
 
 
 def solver(situation: Situation, simulate: bool = False, simulate_expect: int=0):
