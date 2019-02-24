@@ -20,6 +20,17 @@ def get_rows(n, first_row):
     return rows
 
 
+def brute_force(first_row, rows):
+    row = [char == '.' for char in first_row]
+    rows -= 1
+    safe_count = sum(1 for char in row if char)
+    while rows:
+        row = [row[1]] + [a == b for a, b in zip(row, row[2:])] + [row[-2]]
+        safe_count += sum(1 for char in row if char)
+        rows -= 1
+    return safe_count
+
+
 def solve(fp=None, rows=40, rows_2=400000):
     if fp is None:
         dir_path = path.dirname(path.realpath(__file__))
@@ -28,10 +39,8 @@ def solve(fp=None, rows=40, rows_2=400000):
 
     first_row = fp.read().strip()
 
-    part1: str = sum(1 for char in ''.join(get_rows(rows, first_row)) if char
-                     == SAFE)
-    part2: str = sum(1 for char in ''.join(get_rows(rows_2, first_row)) if char
-                     == SAFE)
+    part1: str = brute_force(first_row, rows)
+    part2: str = brute_force(first_row, rows_2)
 
     return part1, part2
 
