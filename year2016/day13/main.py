@@ -8,18 +8,8 @@ class Maze:
     WALL = 0
     OPEN = 1
 
-    def __init__(self, magic_number: int):
-        self.magic_number: int = magic_number
-        self.reference = {}
-
     def __getitem__(self, item: Tuple[int, int]):
-        if item not in self.reference:
-            x, y = item
-            r = x*x + 3*x + 2*x*y + y + y*y
-            r += self.magic_number
-            r = sum(1 for character in bin(r) if character == '1') % 2
-            self.reference[item] = Maze.WALL if r == 1 else Maze.OPEN
-        return self.reference[item]
+        return Maze.WALL
 
     def show_map(
             self,
@@ -35,6 +25,21 @@ class Maze:
             mapping[Maze.WALL] = string
         return tuple(tuple(mapping[self[(x, y)]] for x in range(width)) for y
                      in range(height))
+
+
+class MagicMaze(Maze):
+    def __init__(self, magic_number: int):
+        self.magic_number: int = magic_number
+        self.reference = {}
+
+    def __getitem__(self, item: Tuple[int, int]):
+        if item not in self.reference:
+            x, y = item
+            r = x*x + 3*x + 2*x*y + y + y*y
+            r += self.magic_number
+            r = sum(1 for character in bin(r) if character == '1') % 2
+            self.reference[item] = Maze.WALL if r == 1 else Maze.OPEN
+        return self.reference[item]
 
 
 class AStarMazeSolver:
@@ -157,7 +162,7 @@ def solve(
         simulate_part2: bool = False,
         show_failures: bool = False,
         colored: bool = False):
-    maze: Maze = Maze(number)
+    maze: Maze = MagicMaze(number)
     solver: AStarMazeSolver = AStarMazeSolver(maze, (1, 1))
     solver2: AStarMazeSolver = AStarMazeSolver(maze, (1, 1))
 

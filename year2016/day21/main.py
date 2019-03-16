@@ -7,8 +7,6 @@ from sys import argv
 def scramble(password, operation_list, unscramble=False):
     password = list(password)
     for operation in operation_list[::-1 if unscramble else 1]:
-        if unscramble:
-            print(operation, ''.join(password))
         if operation.startswith('swap position'):
             a, b = map(int, itemgetter(2, 5)(operation.split(' ')))
             t = password[a]
@@ -58,8 +56,6 @@ def scramble(password, operation_list, unscramble=False):
             c = password[a]
             password.pop(a)
             password.insert(b, c)
-        if not unscramble:
-            print(operation, ''.join(password))
     return ''.join(password)
 
 
@@ -72,7 +68,7 @@ def solve(fp=None, password='abcdefgh', password_2='fbgdceah'):
     operations = fp.read().strip().split('\n')
 
     part1: str = scramble(password, operations)
-    part2: str = scramble('fbgdceah', operations, unscramble=True)
+    part2: str = scramble(password_2, operations, unscramble=True)
 
     return part1, part2
 

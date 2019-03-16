@@ -1,5 +1,4 @@
 from itertools import chain
-from operator import attrgetter
 from os import path
 from sys import argv
 from typing import Dict, Union, Optional, List
@@ -33,9 +32,23 @@ class Computer:
             if i1.instruction == 'inc' \
                     and i2.instruction == 'dec' \
                     and i3.instruction == 'jnz'\
-                    and i3.param2 == -2:
+                    and i3.param2 == -2 and i3.param1 == i2.param1:
                 self.registers[i1.param1] += self.registers[i2.param1]
                 self.registers[i2.param1] = 0
+                self.instruction_pointer += 2
+            if i1.instruction == 'inc' \
+                    and i2.instruction == 'inc' \
+                    and i3.instruction == 'jnz' \
+                    and i3.param2 == -2 and i3.param1 == i2.param1:
+                self.registers[i1.param1] -= self.registers[i2.param1]
+                self.registers[i2.param1] = 0
+                self.instruction_pointer += 2
+            if i1.instruction == 'dec' \
+                    and i2.instruction == 'inc' \
+                    and i3.instruction == 'jnz' \
+                    and i3.param2 == -2 and i3.param1 == i1.param1:
+                self.registers[i2.param1] += self.registers[i1.param1]
+                self.registers[i1.param1] = 0
                 self.instruction_pointer += 2
 
     def _execute_statement(self, statement: 'Statement'):
@@ -78,13 +91,14 @@ class Statement:
         return ' '.join(
             chain(
                 [self.instruction],
-                *map(str, filter(None, (self.param1, self.param2)))))
+                *map(str, filter(lambda x: x is not None, (self.param1,
+                                                    self.param2)))))
 
 
 def str_to_parameter(string: str) -> Parameter:
     return (
         int(string)
-        if len(string) > 1 or abs(ord(string) - 53) < 5
+        if len(string) > 1 or abs(ord(string) - 53) <= 5
         else string)
 
 
