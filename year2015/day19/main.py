@@ -1,6 +1,7 @@
 from collections import defaultdict
 from sys import argv
-lines = open('input.txt' if len(argv) < 2 else argv[1], 'r').read().strip().split('\n')
+lines = open('input.txt'
+             if len(argv) < 2 else argv[1], 'r').read().strip().split('\n')
 target = lines.pop()
 lines.pop()
 replacements = defaultdict(list)
@@ -50,7 +51,9 @@ while query_size <= len(target) and skip_chars < len(target):
         snippet = target[-query_size - skip_chars:slice_end]
         if snippet in rev_replacements:
             before = len(target)
-            target = target[:-query_size - skip_chars] + rev_replacements[snippet] + target[slice_end:]
+            target = (target[:-query_size - skip_chars]
+                      + rev_replacements[snippet]
+                      + target[slice_end:])
             num_replacements += 1
             query_size = 1
             skip_chars = 0
